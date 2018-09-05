@@ -1,0 +1,28 @@
+{
+    "type": "minecraft:crafting_shaped",
+   
+    "pattern":
+    [
+        "CCC",
+        " S ",
+        " S "
+    ],
+   
+    "key":
+    {
+        "C":
+        {
+            "item": "minerals:copper_ingot"
+        },
+        "S":
+        {
+            "item": "minecraft:stick"
+        }
+    },
+   
+    "result":
+    {
+        "item": "minerals:copper_pickaxe",
+        "count": 1
+    }
+}

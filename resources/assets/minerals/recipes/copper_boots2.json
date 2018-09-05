@@ -1,0 +1,24 @@
+{
+    "type": "minecraft:crafting_shaped",
+   
+    "pattern":
+    [
+        "   ",
+        "C C",
+        "C C"
+    ],
+   
+    "key":
+    {
+        "C":
+        {
+            "item": "minerals:copper_ingot"
+        }
+    },
+   
+    "result":
+    {
+        "item": "minerals:copper_boots",
+        "count": 1
+    }
+}

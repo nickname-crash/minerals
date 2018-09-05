@@ -1,0 +1,12 @@
+{
+    "parent": "block/orientable",
+    "textures": {
+        "particle": "minerals:blocks/foundry_side",
+        "up": "minerals:blocks/foundry_side",
+        "down": "minerals:blocks/foundry_side",
+        "north": "minerals:blocks/foundry_front_off",
+        "east": "minerals:blocks/foundry_side",
+        "south": "minerals:blocks/foundry_side",
+        "west": "minerals:blocks/foundry_side"
+    }
+}

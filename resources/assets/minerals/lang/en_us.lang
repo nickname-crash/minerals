@@ -1,0 +1,31 @@
+item.ruby.name=Ruby
+item.copper_ingot.name=Copper Ingot
+item.tin_ingot.name=Tin ingot
+
+tile.ruby_block.name=Block of Ruby
+tile.ruby_ore.name=Ruby Ore
+tile.copper_block.name=Block of Copper
+tile.copper_ore.name=Copper Ore
+tile.tin_block.name=Block of Tin
+tile.tin_ore.name=Tin Ore
+tile.foundry.name=Foundry
+
+item.ruby_sword.name=Ruby Sword
+item.ruby_pickaxe.name=Ruby Pickaxe
+item.ruby_axe.name=Ruby Axe
+item.ruby_shovel.name=Ruby Shovel
+item.ruby_hoe.name=Ruby Hoe
+item.copper_sword.name=Copper Sword
+item.copper_pickaxe.name=Copper Pickaxe
+item.copper_axe.name=Copper Axe
+item.copper_shovel.name=Copper Shovel
+item.copper_hoe.name=Copper Hoe
+
+item.ruby_helmet.name=Ruby Helmet
+item.ruby_chestplate.name=Ruby Chestplate
+item.ruby_leggings.name=Ruby Leggings
+item.ruby_boots.name=Ruby Boots
+item.copper_helmet.name=Copper Helmet
+item.copper_chestplate.name=Copper Chestplate
+item.copper_leggings.name=Copper Leggings
+item.copper_boots.name=Copper Boots

@@ -1,0 +1,16 @@
+[
+{
+  "modid": "minerals",
+  "name": "Minerals",
+  "description": "This mods add lots of new ores and minerals which can be used to craft lots of new items",
+  "version": "a_1.0",
+  "mcversion": "1.12.2",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["CrashCZ"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
