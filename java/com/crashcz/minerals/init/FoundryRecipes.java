@@ -22,11 +22,11 @@ public class FoundryRecipes
 	
 	private FoundryRecipes() 
 	{
-		addFoundryRecipe(new ItemStack(ModBlocks.COPPER_BLOCK), new ItemStack(ModBlocks.TIN_BLOCK), new ItemStack(ModBlocks.RUBY_BLOCK), 5.0F);
+		addSinteringRecipe(new ItemStack(ModBlocks.COPPER_BLOCK), new ItemStack(ModBlocks.TIN_BLOCK), new ItemStack(ModBlocks.RUBY_BLOCK), 5.0F);
 	}
 
 	
-	public void addFoundryRecipe(ItemStack input1, ItemStack input2, ItemStack result, float experience) 
+	public void addSinteringRecipe(ItemStack input1, ItemStack input2, ItemStack result, float experience) 
 	{
 		if(getFoundryResult(input1, input2) != ItemStack.EMPTY) return;
 		this.smeltingList.put(input1, input2, result);
@@ -61,7 +61,7 @@ public class FoundryRecipes
 		return this.smeltingList;
 	}
 	
-	public float getSinteringExperience(ItemStack stack)
+	public float getFoundryExperience(ItemStack stack)
 	{
 		for (Entry<ItemStack, Float> entry : this.experienceList.entrySet()) 
 		{

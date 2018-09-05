@@ -23,11 +23,12 @@ public class FoundryContainer extends Container
 	public FoundryContainer(InventoryPlayer player, TileEntityFoundry tileentity) 
 	{
 		this.tileentity = tileentity;
+		IItemHandler handler = tileentity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 		
-		this.addSlotToContainer(new Slot(tileentity, 0, 56, 17));
-		this.addSlotToContainer(new Slot(tileentity, 1, 56, 53));
-		this.addSlotToContainer(new FoundryFuelSlot(tileentity, 2, 33, 35));
-		this.addSlotToContainer(new FoundryOutputSlot(player.player, tileentity, 3, 119, 38));
+		this.addSlotToContainer(new SlotItemHandler(handler, 0, 26, 11));
+		this.addSlotToContainer(new SlotItemHandler(handler, 1, 26, 59));
+		this.addSlotToContainer(new SlotItemHandler(handler, 2, 7, 35));
+		this.addSlotToContainer(new SlotItemHandler(handler, 3, 81, 36));
 		
 		for(int y = 0; y < 3; y++)
 		{
@@ -43,12 +44,6 @@ public class FoundryContainer extends Container
 		}
 	}
 	
-	@Override
-	public void addListener(IContainerListener listener)
-	{
-		super.addListener(listener);
-		listener.sendAllWindowProperties(this, this.tileentity);
-	}
 	@Override
 	public void detectAndSendChanges() 
 	{

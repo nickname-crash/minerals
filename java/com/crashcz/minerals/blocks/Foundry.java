@@ -30,33 +30,46 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class Foundry extends BlockBase implements ITileEntityProvider
+public class Foundry extends BlockBase
 {
-
 	public static final PropertyDirection FACING = BlockHorizontal.FACING;
 	public static final PropertyBool BURNING = PropertyBool.create("burning");
 	
-	public Foundry(String name, Material material)
+	public Foundry(String name, Material material) 
 	{
 		super(name, material);
-		this.setSoundType(SoundType.STONE);
+		setSoundType(SoundType.METAL);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(BURNING, false));
 	}
 	
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
+	public Item getItemDropped(IBlockState state, Random rand, int fortune) 
+	{
+		return Item.getItemFromBlock(ModBlocks.FOUNDRY);
+	}
+	
+	@Override
+	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
+	{
+		return new ItemStack(ModBlocks.FOUNDRY);
+	}
+	
+	@Override
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) 
 	{
 		if(!worldIn.isRemote)
 		{
 			playerIn.openGui(Main.instance, Reference.GUI_FOUNDRY, worldIn, pos.getX(), pos.getY(), pos.getZ());
 		}
+		
 		return true;
 	}
+	
 	@Override
-	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
+	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) 
 	{
-		if(!worldIn.isRemote)
-		{
+		if (!worldIn.isRemote) 
+        {
             IBlockState north = worldIn.getBlockState(pos.north());
             IBlockState south = worldIn.getBlockState(pos.south());
             IBlockState west = worldIn.getBlockState(pos.west());
@@ -68,78 +81,83 @@ public class Foundry extends BlockBase implements ITileEntityProvider
             else if (face == EnumFacing.WEST && west.isFullBlock() && !east.isFullBlock()) face = EnumFacing.EAST;
             else if (face == EnumFacing.EAST && east.isFullBlock() && !west.isFullBlock()) face = EnumFacing.WEST;
             worldIn.setBlockState(pos, state.withProperty(FACING, face), 2);
-		}
+        }
 	}
-	public static void setState(boolean active, World worldIn, BlockPos pos)
+	
+	public static void setState(boolean active, World worldIn, BlockPos pos) 
 	{
 		IBlockState state = worldIn.getBlockState(pos);
-		TileEntity tileEntity = worldIn.getTileEntity(pos);
-		if(active)
-			worldIn.setBlockState(pos, ModBlocks.FOUNDRY.getDefaultState().withProperty(FACING, state.getValue(FACING)).withProperty(BURNING, false), 3);
-		else
-			worldIn.setBlockState(pos, ModBlocks.FOUNDRY.getDefaultState().withProperty(FACING, state.getValue(FACING)).withProperty(BURNING, false), 3);
+		TileEntity tileentity = worldIn.getTileEntity(pos);
 		
-		if(tileEntity != null)
+		//if(active) worldIn.setBlockState(pos, BlockInit.SINTERING_FURNACE.getDefaultState().withProperty(FACING, state.getValue(FACING)).withProperty(BURNING, true), 3);
+		//else worldIn.setBlockState(pos, BlockInit.SINTERING_FURNACE.getDefaultState().withProperty(FACING, state.getValue(FACING)).withProperty(BURNING, false), 3);
+		
+		if(tileentity != null) 
 		{
-			tileEntity.validate();
-			worldIn.setTileEntity(pos, tileEntity);
+			tileentity.validate();
+			worldIn.setTileEntity(pos, tileentity);
 		}
 	}
+	
 	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta)
+	public boolean hasTileEntity(IBlockState state) 
+	{
+		return true;
+	}
+	
+	@Override
+	public TileEntity createTileEntity(World world, IBlockState state) 
 	{
 		return new TileEntityFoundry();
 	}
+	
 	@Override
-	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand)
+	public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) 
 	{
 		return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
 	}
+	
 	@Override
-	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
+	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) 
 	{
 		worldIn.setBlockState(pos, this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
 	}
+	
 	@Override
-	public Item getItemDropped(IBlockState state, Random rand, int fortune)
-	{
-		return Item.getItemFromBlock(ModBlocks.FOUNDRY);
-	}
-	@Override
-	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
-	{
-		return new ItemStack(ModBlocks.FOUNDRY);
-	}
-	@Override
-	public EnumBlockRenderType getRenderType(IBlockState state)
+	public EnumBlockRenderType getRenderType(IBlockState state) 
 	{
 		return EnumBlockRenderType.MODEL;
 	}
+	
 	@Override
 	public IBlockState withRotation(IBlockState state, Rotation rot)
 	{
 		return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
 	}
+	
 	@Override
-	public IBlockState withMirror(IBlockState state, Mirror mirrorIn)
+	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) 
 	{
 		return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
 	}
+	
 	@Override
-	protected BlockStateContainer createBlockState()
+	protected BlockStateContainer createBlockState() 
 	{
-		return new BlockStateContainer(this, new IProperty[] {BURNING, FACING});
+		return new BlockStateContainer(this, new IProperty[] {BURNING,FACING});
 	}
+	
 	@Override
-	public IBlockState getStateFromMeta(int meta)
+	public IBlockState getStateFromMeta(int meta) 
 	{
 		EnumFacing facing = EnumFacing.getFront(meta);
-		if(facing.getAxis() == EnumFacing.Axis.Y)
-			facing = EnumFacing.NORTH;
+		if(facing.getAxis() == EnumFacing.Axis.Y) facing = EnumFacing.NORTH;
 		return this.getDefaultState().withProperty(FACING, facing);
 	}
-	public int getMetaFromState(IBlockState state)
+	
+	@Override
+	public int getMetaFromState(IBlockState state) 
 	{
 		return ((EnumFacing)state.getValue(FACING)).getIndex();
-	}
+	}	
 }
