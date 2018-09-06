@@ -20,7 +20,7 @@ public class FoundryRecipes
 		return INSTANCE;
 	}
 	
-	private FoundryRecipes() 
+	public FoundryRecipes() 
 	{
 		addSinteringRecipe(new ItemStack(ModBlocks.COPPER_BLOCK), new ItemStack(ModBlocks.TIN_BLOCK), new ItemStack(ModBlocks.RUBY_BLOCK), 5.0F);
 	}
@@ -29,25 +29,28 @@ public class FoundryRecipes
 	public void addSinteringRecipe(ItemStack input1, ItemStack input2, ItemStack result, float experience) 
 	{
 		if(getFoundryResult(input1, input2) != ItemStack.EMPTY) return;
-		this.smeltingList.put(input1, input2, result);
-		this.experienceList.put(result, Float.valueOf(experience));
+		smeltingList.put(input1, input2, result);
+		experienceList.put(result, Float.valueOf(experience));
 	}
 	
 	public ItemStack getFoundryResult(ItemStack input1, ItemStack input2) 
 	{
-		for(Entry<ItemStack, Map<ItemStack, ItemStack>> entry : this.smeltingList.columnMap().entrySet()) 
+		for(Entry<ItemStack, Map<ItemStack, ItemStack>> entry : smeltingList.columnMap().entrySet()) 
 		{
-			if(this.compareItemStacks(input1, (ItemStack)entry.getKey())) 
+			if(compareItemStacks(input1, (ItemStack)entry.getKey())) 
 			{
+				System.out.println("found something");
 				for(Entry<ItemStack, ItemStack> ent : entry.getValue().entrySet()) 
 				{
-					if(this.compareItemStacks(input2, (ItemStack)ent.getKey())) 
+					if(compareItemStacks(input2, (ItemStack)ent.getKey())) 
 					{
+						System.out.println("found result " + ent.getValue());
 						return (ItemStack)ent.getValue();
 					}
 				}
 			}
 		}
+		System.out.println("no result found");
 		return ItemStack.EMPTY;
 	}
 	

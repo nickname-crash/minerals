@@ -128,7 +128,11 @@ public class Foundry extends BlockBase
 	{
 		return EnumBlockRenderType.MODEL;
 	}
-	
+	@Override
+	public boolean hasTileEntity()
+	{
+		return true;
+	}
 	@Override
 	public IBlockState withRotation(IBlockState state, Rotation rot)
 	{
